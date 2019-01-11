@@ -1,0 +1,65 @@
+import java.awt.*;
+import javax.swing.JFrame;
+
+// 需求：桌球在球桌中按照一定路线和角度移动，遇见边框自动弹回。
+public class GameBall extends JFrame{
+	
+	// 引入ball.png和desk.png图片
+	Image ball = Toolkit.getDefaultToolkit().getImage("img/ball.png");
+	Image desk = Toolkit.getDefaultToolkit().getImage("img/desk.jpg");
+	
+	// 小球横坐标
+	double x = 100; 
+	// 小球纵坐标
+	double y = 100;
+	// 方向
+	boolean right = true;
+	
+	// 画窗口的方法 这儿paint方法是重写重写父类【JFrame——Frame——Window】方法
+	public void paint(Graphics g) {
+		System.out.println("窗口被画了一次");
+		g.drawImage(desk, 0, 0, null);
+		g.drawImage(ball, (int)x, (int)y, null);
+		
+		if (right) {
+			x = x + 10;
+		} else {
+			x = x - 10;
+		}
+		// 856窗口宽度，40是桌子边框宽度，30是球直径。
+		if (x > 856 - 40 - 30) {
+			right = false;
+		} else if (x < 40) {
+			right = true;
+		}
+		
+	}
+	
+	// 加载窗口
+	void startFrame() {
+		// 窗口大小
+		setSize(856, 500);
+		// 窗口位置
+		setLocation(50, 50);
+		// 是否可见
+		setVisible(true);
+		
+		// 重画窗口
+		while (true) {
+			repaint();
+			try {
+				Thread.sleep(40);// 1秒为1000ms(毫秒)，这儿表示1秒钟画25次窗口
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	}
+	
+	public static void main(String[] args) {
+		System.out.println("桌球游戏");
+		GameBall gameBall = new GameBall();
+		gameBall.startFrame();
+	}
+}
