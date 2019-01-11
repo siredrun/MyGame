@@ -47,8 +47,7 @@ public class GameBall2 extends JFrame{
 			repaint();
 			try {
 				Thread.sleep(40);// 1秒为1000ms(毫秒)，这儿表示1秒钟画25次窗口
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
